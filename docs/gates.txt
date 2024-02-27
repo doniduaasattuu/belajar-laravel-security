@@ -1,0 +1,5 @@
+Gate::allows(role, resource) -> mengecek apakah user diperbolehkan
+Gate::denies(role, resource) -> mengecek apakah user tidak diperbolehkan
+Gate::any(roles, resource) -> mengecek apakah user diperbolehkan di salah satu role
+Gate::none(roles, resource) -> mengecek apakah user tidak diperbolehkan di semua role
+Gate::authorize(role, resource) -> jika user tidak diperbolehkan, akan terjadi error AuthorizationException(403)
