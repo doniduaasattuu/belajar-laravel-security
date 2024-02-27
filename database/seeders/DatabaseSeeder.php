@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Contact;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -20,11 +22,14 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        DB::table('contact')->delete();
+        DB::table('todos')->delete();
+        DB::table('contacts')->delete();
         DB::table('users')->delete();
 
         $this->call([
-            UserSeeder::class
+            UserSeeder::class,
+            ContactSeeder::class,
+            TodoSeeder::class,
         ]);
     }
 }
