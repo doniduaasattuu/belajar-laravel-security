@@ -1,0 +1,6 @@
+AUTHENTICATION
+
+Auth::attempt(credential, remember) -> melakukan login dengan credential
+Auth::login(credential) -> langsung melakukan login untuk credential
+Auth::logout() -> mengeluarkan user yang sedang login
+Auth::user() -> mendapatkan informasi user yang sedang login
