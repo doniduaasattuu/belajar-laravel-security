@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/users/login', [UserController::class, 'login'])->name('login');
-Route::get('/users/current', [UserController::class, 'current'])->name('current');
+Route::get('/users/current', [UserController::class, 'current'])->name('current')->middleware('auth');
 
 Route::get('/', function () {
     return view('welcome');

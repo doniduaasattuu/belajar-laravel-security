@@ -51,7 +51,8 @@ class UserTest extends TestCase
         $this->seed(UserSeeder::class);
 
         $this->get('/users/current')
-            ->assertSeeText('Hello Guest');
+            ->assertStatus(302)
+            ->assertRedirectToRoute('login');
 
         $user = User::where('email', 'doni@localhost')->first();
         $this->actingAs($user)
