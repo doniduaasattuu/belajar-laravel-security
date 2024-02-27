@@ -16,8 +16,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/users/login', [UserController::class, 'login'])->name('login');
-Route::get('/users/current', [UserController::class, 'current'])->middleware(['auth:web'])->name('current');
-Route::get('/api/users/current', [UserController::class, 'current'])->middleware(['auth:token'])->name('current');
+Route::get('/users/current', [UserController::class, 'current'])->middleware(['auth:web']);
+Route::get('/api/users/current', [UserController::class, 'current'])->middleware(['auth:token']);
+Route::get('/simple-api/users/current', [UserController::class, 'current'])->middleware(['auth:simple-token']);
 
 Route::get('/', function () {
     return view('welcome');

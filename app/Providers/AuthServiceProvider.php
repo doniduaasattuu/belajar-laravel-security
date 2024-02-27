@@ -3,7 +3,16 @@
 namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
+
+use App\Models\Contact;
+use App\Models\User;
+use App\Providers\Guard\TokenGuard;
+use App\Providers\User\SimpleUserProvider;
+use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -21,6 +30,32 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Auth::extend('token', function (Application $app, string $name, array $config) {
+            $tokenGuard = new TokenGuard(Auth::createUserProvider($config['provider']), $app->make(Request::class));
+            $app->refresh('request', $tokenGuard, 'setRequest');
+            return $tokenGuard;
+        });
+
+        // Auth::extend('simple', function (Application $app, string $name, array $config) {
+        //     $simpleGuard = new SimpleUserProvider(Auth::createUserProvider($config['provide']), $app->make(Request::class));
+        //     $app->refresh('request', $simpleGuard, 'setRequest');
+        //     return $simpleGuard;
+        // });
+
+        Auth::provider('simple', function (Application $app, array $config) {
+            return new SimpleUserProvider();
+        });
+
+        Gate::define('get-contact', function (User $user, Contact $contact) {
+            return $user->id == $contact->user_id;
+        });
+
+        Gate::define('update-contact', function (User $user, Contact $contact) {
+            return $user->id == $contact->user_id;
+        });
+
+        Gate::define('delete-contact', function (User $user, Contact $contact) {
+            return $user->id == $contact->user_id;
+        });
     }
 }

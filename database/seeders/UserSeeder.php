@@ -19,5 +19,12 @@ class UserSeeder extends Seeder
             'password' => bcrypt('rahasia'),
             'token' => 'secret',
         ]);
+
+        User::create([
+            'name' => 'Eko Khannedy',
+            'email' => 'eko@localhost',
+            'password' => bcrypt('rahasia'),
+            'token' => 'secret',
+        ]);
     }
 }
